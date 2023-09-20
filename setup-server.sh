@@ -125,6 +125,7 @@ then
         }
 
         config config --local status.showUntrackedFiles no
+        config fetch --all
         config reset --hard
 else
         line "| Can't clone dotfiles from '$DOTFILES_REPO' repository!!! |"
