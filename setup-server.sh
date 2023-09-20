@@ -112,9 +112,9 @@ line "| Configure dotfiles |"
 echo " "
 
 # Clone dotfiles repo
+DOTFILES_DIR="/home/$NORMAL_USER/dotfiles"
 if [ "$NORMAL_USER" != "" ] && [ ! -d "$DOTFILES_DIR" ]
 then
-        DOTFILES_DIR="/home/$NORMAL_USER/dotfiles"
         git clone --bare $DOTFILES_REPO $DOTFILES_DIR
 fi
 
