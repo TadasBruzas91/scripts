@@ -6,6 +6,8 @@ function configuration {
 }
 
 PACKAGES=(
+        tree
+        rsync
         git
         neovim
         ranger
