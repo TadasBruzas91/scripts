@@ -6,6 +6,7 @@ function configuration {
 }
 
 PACKAGES=(
+        net-tools
         tree
         rsync
         git
