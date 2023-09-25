@@ -74,7 +74,7 @@ line "| Configuring nginx... |"
 echo " "
 
 NGINX_KEYRING_FILE="/usr/share/keyrings/nginx-archive-keyring.gpg"
-if [ ! -f "$NGINX_KEYRING_FILE"]
+if [ ! -f "$NGINX_KEYRING_FILE" ]
 then
         sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
         curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
