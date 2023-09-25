@@ -144,7 +144,7 @@ sudo systemctl enable nginx
 
 # Install fail2ban from github
 FAIL_TWO_BAN="$(apt list --installed 2> /dev/null | grep fail2ban)"
-if [ "$FAIL_TWO_BAN" != "" ]
+if [ -z "$FAIL_TWO_BAN" ]
 then
         echo " "
         line "| Install fail2ban from github |"
