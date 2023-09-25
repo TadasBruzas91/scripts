@@ -142,6 +142,19 @@ fi
 # Enable nginx startup on reboot
 sudo systemctl enable nginx
 
+# Install fail2ban from github
+FAIL_TWO_BAN="$(apt list --installed 2> /dev/null | grep fail2ban)"
+if [ "$FAIL_TWO_BAN" != "" ]
+then
+        echo " "
+        line "| Install fail2ban from github |"
+        echo " "
+        cd /tmp
+        wget https://github.com/fail2ban/fail2ban/releases/download/1.0.2/fail2ban_1.0.2-1.upstream1_all.deb -O fail2ban.deb
+        sudo dpkg -i fail2ban.deb
+fi
+
+# Configure home bare git repository
 if [ -d "$DOTFILES_DIR" ]
 then
         function config {
