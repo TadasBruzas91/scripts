@@ -13,6 +13,7 @@ PACKAGES=(
         ranger
         neofetch
         bpytop
+        nginx
         docker-ce
         docker-ce-cli
         containerd.io
@@ -53,8 +54,8 @@ echo " "
 line "| Configuring docker... |"
 echo " "
 
-DOCKER_KEYRING_DIR="/etc/apt/keyrings/docker.gpg"
-if [ ! -f "$DOCKER_KEYRING_DIR" ]
+DOCKER_KEYRING_FILE="/etc/apt/keyrings/docker.gpg"
+if [ ! -f "$DOCKER_KEYRING_FILE" ]
 then
         sudo apt install -y ca-certificates curl gnupg
         sudo install -m 0755 -d /etc/apt/keyrings
@@ -65,8 +66,19 @@ then
         "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
         "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
         sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+fi
 
-        sudo apt update
+# Configure nginx
+echo " "
+line "| Configuring nginx... |"
+echo " "
+
+NGINX_KEYRING_FILE="/usr/share/keyrings/nginx-archive-keyring.gpg"
+if [ ! -f "$NGINX_KEYRING_FILE"]
+then
+        sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+        curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+        echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx
 fi
 
 NORMAL_USER="$(id -nu 1000)"
@@ -100,6 +112,7 @@ fi
 echo " "
 line "| Install packages |"
 echo " "
+sudo apt update
 sudo apt install -y ${PACKAGES[@]}
 
 # List installed packages
@@ -119,6 +132,9 @@ if [ "$NORMAL_USER" != "" ] && [ ! -d "$DOTFILES_DIR" ]
 then
         git clone --bare $DOTFILES_REPO $DOTFILES_DIR
 fi
+
+# Enable nginx startup on reboot
+sudo systemctl enable nginx
 
 if [ -d "$DOTFILES_DIR" ]
 then
