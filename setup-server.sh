@@ -50,13 +50,14 @@ sudo apt full-upgrade -y
 sudo apt autoremove -y
 
 # Configure docker
-echo " "
-line "| Configuring docker... |"
-echo " "
 
 DOCKER_KEYRING_FILE="/etc/apt/keyrings/docker.gpg"
 if [ ! -f "$DOCKER_KEYRING_FILE" ]
 then
+        echo " "
+        line "| Configuring docker... |"
+        echo " "
+
         sudo apt install -y ca-certificates curl gnupg
         sudo install -m 0755 -d /etc/apt/keyrings
         sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -69,13 +70,14 @@ then
 fi
 
 # Configure nginx
-echo " "
-line "| Configuring nginx... |"
-echo " "
 
 NGINX_KEYRING_FILE="/usr/share/keyrings/nginx-archive-keyring.gpg"
 if [ ! -f "$NGINX_KEYRING_FILE" ]
 then
+        echo " "
+        line "| Configuring nginx... |"
+        echo " "
+
         sudo apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring
         curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
         echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
