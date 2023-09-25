@@ -13,6 +13,9 @@ PACKAGES=(
         ranger
         neofetch
         bpytop
+        python3-certbot-dns-cloudflare
+        python3-certbot-nginx
+        certbot
         nginx
         docker-ce
         docker-ce-cli
