@@ -5,6 +5,8 @@ function configuration {
         SHELL_CONFIG_COMMENT="# bashrc configured by setup-server.sh script"
 }
 
+SYSTEM_TIME_ZONE="Europe/Vilnius"
+
 PACKAGES=(
         net-tools
         tree
@@ -45,10 +47,14 @@ fi
 # Configure variables
 configuration
 
-# Update system
 sudo echo " "
 line "| Script started |"
 echo " "
+
+# Set correct time zone
+sudo timedatectl set-timezone "$SYSTEM_TIME_ZONE"
+
+# Update system
 sudo apt update
 sudo apt full-upgrade -y
 sudo apt autoremove -y
