@@ -8,6 +8,8 @@ function configuration {
 SYSTEM_TIME_ZONE="Europe/Vilnius"
 
 PACKAGES=(
+        zsh
+        logrotate
         net-tools
         tree
         rsync
@@ -15,7 +17,7 @@ PACKAGES=(
         neovim
         ranger
         neofetch
-        bpytop
+        btop
         python3-pip
         python3-certbot-dns-cloudflare
         python3-certbot-nginx
